@@ -125,11 +125,12 @@ end
 
 function pixiInstall(path, version)
     local condaForge = os.getenv("Conda_Forge") or "conda-forge"
+    local noStdout = RUNTIME.osType == "windows" and " > nul" or " > /dev/null"
     local pixi = RUNTIME.osType == "windows" and path .. "\\pixi.exe" or path .. "/pixi"
     local command = pixi .. " global install -qc " .. condaForge .. " clang=" .. version
 
     os.setenv("PIXI_HOME", path)
-    local status = os.execute(command)
+    local status = os.execute(command .. noStdout)
     if status ~= 0 then
         print("Failed to execute command: " .. command)
         os.exit(1)
