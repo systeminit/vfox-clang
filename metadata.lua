@@ -5,7 +5,7 @@ PLUGIN = {}
 --- Plugin name
 PLUGIN.name = "clang"
 --- Plugin version
-PLUGIN.version = "0.1.0"
+PLUGIN.version = "0.1.1"
 --- Plugin homepage
 PLUGIN.homepage = "https://github.com/yanecc/vfox-clang"
 --- Plugin license, please choose a correct license according to your needs.
