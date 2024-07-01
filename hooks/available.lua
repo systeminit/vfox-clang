@@ -1,10 +1,10 @@
 require("util")
 
 function PLUGIN:Available(ctx)
-    local option = ctx.args[1]
-    local noCache = false
-    if option == "--no-cache" then
-        noCache = true
+    local cacheArg = hasValue(ctx.args, "--no-cache")
+    if cacheArg then
+        clearCache()
     end
-    return fetchAvailable(noCache)
+    
+    return fetchAvailable()
 end

@@ -10,11 +10,11 @@ After installing [vfox](https://github.com/version-fox/vfox), install the plugin
 vfox add clang
 ```
 
-Next, search and select the version to install. By default, vfox keeps cache for available versions, use `--no-cache` flag to search without cache and rebuild the cache.
+Next, search and select the version to install. By default, vfox keeps cache for available versions, use the `--no-cache` flag to delete the cache file.
 
 ``` shell
 vfox search clang
-vfox search clang --no-cache
+vfox search clang --no-cache && vfox search clang
 ```
 
 Install the latest stable version with `latest` tag.

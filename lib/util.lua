@@ -22,12 +22,10 @@ end
 
 local ClangVersions = fetchVersions()
 
-function fetchAvailable(noCache)
+-- available.lua
+function fetchAvailable()
     local result = {}
 
-    if noCache then
-        clearCache()
-    end
     for i, v in ipairs(ClangVersions) do
         if i == 1 then
             table.insert(result, {
@@ -46,8 +44,10 @@ end
 
 function clearCache()
     os.remove(RUNTIME.pluginDirPath .. "/available.cache")
+    os.exit()
 end
 
+-- pre_install.lua
 function getDownloadInfo(version)
     local file
 
@@ -101,6 +101,7 @@ function generatePixi(osType, archType)
     return file
 end
 
+-- post_install.lua
 function pixiInstall(path, version)
     local condaForge = os.getenv("Conda_Forge") or "conda-forge"
     local noStdout = RUNTIME.osType == "windows" and " > nul" or " > /dev/null"
