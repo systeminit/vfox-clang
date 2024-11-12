@@ -89,7 +89,7 @@ function generatePixi(osType, archType)
         file = "pixi-" .. archType .. "-apple-darwin.tar.gz"
     elseif osType == "linux" then
         file = "pixi-" .. archType .. "-unknown-linux-musl.tar.gz"
-    elseif osType == "windows" and archType == "x86_64" then
+    elseif osType == "windows" then
         file = "pixi-" .. archType .. "-pc-windows-msvc.zip"
     else
         print("Unsupported environment: " .. osType .. "-" .. archType)
