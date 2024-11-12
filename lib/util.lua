@@ -20,13 +20,11 @@ function fetchVersions()
     return versionList
 end
 
-local ClangVersions = fetchVersions()
-
 -- available.lua
 function fetchAvailable()
     local result = {}
 
-    for i, v in ipairs(ClangVersions) do
+    for i, v in ipairs(fetchVersions()) do
         if i == 1 then
             table.insert(result, {
                 version = v,
@@ -50,6 +48,7 @@ end
 -- pre_install.lua
 function getDownloadInfo(version)
     local file
+    local ClangVersions = fetchVersions()
 
     if version == "latest" then
         version = ClangVersions[1]
@@ -86,7 +85,7 @@ function generatePixi(osType, archType)
         print("Unsupported architecture: " .. archType)
         os.exit(1)
     end
-    if osType == "macos" then
+    if osType == "darwin" then
         file = "pixi-" .. archType .. "-apple-darwin.tar.gz"
     elseif osType == "linux" then
         file = "pixi-" .. archType .. "-unknown-linux-musl.tar.gz"
@@ -106,9 +105,8 @@ function pixiInstall(path, version)
     local condaForge = os.getenv("Conda_Forge") or "conda-forge"
     local noStdout = RUNTIME.osType == "windows" and " > nul" or " > /dev/null"
     local pixi = RUNTIME.osType == "windows" and path .. "\\pixi.exe" or path .. "/pixi"
-    local command = pixi .. " global install -qc " .. condaForge .. " clang=" .. version
+    local command = "PIXI_HOME=" .. path .. " " .. pixi .. " global install -qc " .. condaForge .. " clang=" .. version
 
-    os.setenv("PIXI_HOME", path)
     local status = os.execute(command .. noStdout)
     if status ~= 0 then
         print("Failed to execute command: " .. command)
