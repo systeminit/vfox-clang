@@ -1,5 +1,6 @@
 local http = require("http")
 local json = require("json")
+local env = require("env")
 
 function fetchVersions()
     local versionList
@@ -105,7 +106,8 @@ function pixiInstall(path, version)
     local condaForge = os.getenv("Conda_Forge") or "conda-forge"
     local noStdout = RUNTIME.osType == "windows" and " > nul" or " > /dev/null"
     local pixi = RUNTIME.osType == "windows" and path .. "\\pixi.exe" or path .. "/pixi"
-    local command = "PIXI_HOME=" .. path .. " " .. pixi .. " global install -qc " .. condaForge .. " clang=" .. version
+    local command = pixi .. " global install -qc " .. condaForge .. " clang=" .. version
+    env.setenv("PIXI_HOME", path)
 
     local status = os.execute(command .. noStdout)
     if status ~= 0 then
