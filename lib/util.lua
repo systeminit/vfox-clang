@@ -106,7 +106,7 @@ function pixiInstall(path, version)
     local condaForge = os.getenv("Conda_Forge") or "conda-forge"
     local noStdout = RUNTIME.osType == "windows" and " > nul" or " > /dev/null"
     local pixi = RUNTIME.osType == "windows" and path .. "\\pixi.exe" or path .. "/pixi"
-    local command = pixi .. " global install -qc " .. condaForge .. " clang=" .. version .. " libclang"
+    local command = pixi .. " global install -c " .. condaForge .. " clang=" .. version .. " libclang"
 
     env.setenv("PIXI_HOME", path)
 
