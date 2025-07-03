@@ -104,9 +104,12 @@ end
 -- post_install.lua
 function pixiInstall(path, version)
     local condaForge = os.getenv("Conda_Forge") or "conda-forge"
+    local geertsky = "geertsky"
+
     local noStdout = RUNTIME.osType == "windows" and " > nul" or " > /dev/null"
     local pixi = RUNTIME.osType == "windows" and path .. "\\pixi.exe" or path .. "/pixi"
-    local command = pixi .. " global install -c " .. condaForge .. " clang=" .. version .. " libclang"
+      local command = pixi .. " global install -c " .. condaForge .. " -c " .. geertsky .. " clang=" .. version .. " libclang" .. " lvm2"
+
 
     env.setenv("PIXI_HOME", path)
 
