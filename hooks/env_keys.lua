@@ -3,8 +3,8 @@ function PLUGIN:EnvKeys(ctx)
 
     local binPath = mainPath .. "/bin"
     local libclangPath = mainPath .. "/envs/libclang/lib"
-    local lvm2IncludePath = mainPath .. "/envs/lvm2/include"
-    local lvm2LibPath = mainPath .. "/envs/lvm2/lib"
+    local lvm2LibPath = mainPath .. "/envs/lvm2/lib/pkgconfig"
+    local lvm2Includes = "-I" .. mainPath .. "/envs/lvm2/include"
 
     return {
         {
@@ -16,12 +16,12 @@ function PLUGIN:EnvKeys(ctx)
             value = libclangPath
         },
         {
-            key = "CPATH",
-            value = lvm2IncludePath
+            key = "PKG_CONFIG_PATH",
+            value = lvm2LibPath
         },
         {
-            key = "LIBRARY_PATH",
-            value = lvm2LibPath
+            key = "BINDGEN_EXTRA_CLANG_ARGS",
+            value = lvm2Includes
         }
     }
 end
